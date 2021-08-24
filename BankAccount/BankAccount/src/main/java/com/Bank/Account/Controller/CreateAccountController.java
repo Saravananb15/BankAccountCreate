@@ -4,13 +4,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -19,29 +18,23 @@ import com.Bank.Account.model.BankAccount;
 import com.Bank.Account.model.ResponseMessage;
 
 //import reactor.core.publisher.Flux;
-//import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
-@RequestMapping("/createAccount")
+@RequestMapping("/home")
 public class CreateAccountController {
 	@Autowired
 	CreateAccountServiceImpl AccService;
-	
-	WebClient.Builder builder = WebClient.builder();
-//	@GetMapping
-//	public Flux<BankAccount> getAccount() {
-//		return AccService.getAccount();
-//	}
-//	@GetMapping("/{id}")
-//	public Mono<BankAccount> getAccount(@PathVariable long id) {
-//		return AccService.getAccount(id);
-//	}
 
+	@GetMapping("/login/{id}")
+	public Mono<BankAccount> loginAccount(@PathVariable long id) {
+		return AccService.loginAccount(id);
+	}
 
 	// post the customer details into database
-	@PostMapping
-	public Mono<ResponseEntity<ResponseMessage>> createAccount(@RequestBody BankAccount account) throws URISyntaxException {
+	@PostMapping("/createAccount")
+	public Mono<ResponseEntity<ResponseMessage>> createAccount(@RequestBody BankAccount account)
+			throws URISyntaxException {
 		Mono<BankAccount> acc = AccService.createAccount(account);
 
 		StringBuilder locationStr = new StringBuilder();

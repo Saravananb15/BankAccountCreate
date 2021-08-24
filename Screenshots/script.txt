@@ -1,0 +1,19 @@
+Create database test1;
+use test1;
+create table bank_account(
+id varchar(25),
+customer_id bigint primary key auto_increment,
+customer_name varchar(25),
+user_name varchar(25),
+password varchar(25),
+customer_address varchar(25),
+customer_state varchar(25),
+customer_country varchar(25),
+customer_email_id varchar(25),
+customer_pan varchar(25),
+customer_mobile_number varchar(25),
+customerdob varchar(25),
+account_type varchar(25)
+);
+
+Select * from bank_account;
